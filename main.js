@@ -23,6 +23,11 @@ app.get("/api/room", (req, res) => {
     res.json({});
 });
 
+app.get("/api/room/:id", (req, res) => {
+    //TODO
+    res.json({});
+});
+
 app.use(function(req, res, next) {
     next(createError(404));
 });
