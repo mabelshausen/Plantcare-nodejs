@@ -9,6 +9,20 @@ app.set('port', port);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.get("/", (req, res) => {
+    res.sendStatus(404);
+});
+
+app.use("/api/*", (req, res, next) => {
+    console.log(`${req.method} ${req.originalUrl}`);
+    next();
+});
+
+app.get("/api/room", (req, res) => {
+   //TODO
+    res.json({});
+});
+
 app.use(function(req, res, next) {
     next(createError(404));
 });
@@ -22,4 +36,6 @@ app.use(function(err, req, res, next) {
 
 
 var server = http.createServer(app);
-server.listen(port);
+server.listen(port, () => {
+    console.log(`Listening on port ${port}`);
+});
