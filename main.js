@@ -1,7 +1,10 @@
 var createError = require('http-errors');
 var express = require('express');
+var http = require('http');
 
 var app = express();
+var port = '8000';
+app.set('port', port);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -16,3 +19,7 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+
+
+var server = http.createServer(app);
+server.listen(port);
