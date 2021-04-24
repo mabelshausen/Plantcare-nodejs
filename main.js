@@ -18,12 +18,12 @@ app.use("/api/*", (req, res, next) => {
     next();
 });
 
-app.get("/api/room", (req, res) => {
+app.get("/api/rooms", (req, res) => {
    //TODO
     res.json({});
 });
 
-app.get("/api/room/:id", (req, res) => {
+app.get("/api/rooms/:id", (req, res) => {
     //TODO
     res.json({});
 });
