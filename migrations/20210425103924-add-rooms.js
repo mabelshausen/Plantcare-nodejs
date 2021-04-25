@@ -15,14 +15,14 @@ exports.setup = function(options, seedLink) {
 };
 
 exports.up = function(db) {
-  return db.createTable('room', {
+  return db.createTable('rooms', {
     id: { type: 'int', primaryKey: true },
     name: 'string'
   });
 };
 
 exports.down = function(db) {
-  return db.dropTable('pets');
+  return db.dropTable('rooms');
 };
 
 exports._meta = {
