@@ -1,0 +1,11 @@
+{
+  "dev": {
+    "host": "localhost",
+    "user": "plantcareuser",
+    "password" : "password",
+    "database": "plantcare",
+    "port": "3306",
+    "driver": "mysql",
+    "multipleStatements": true
+  }
+}
