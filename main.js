@@ -2,6 +2,8 @@ var createError = require('http-errors');
 var express = require('express');
 var http = require('http');
 
+const data = require("./data");
+
 var app = express();
 var port = '8000';
 app.set('port', port);
@@ -19,8 +21,9 @@ app.use("/api/*", (req, res, next) => {
 });
 
 app.get("/api/rooms", (req, res) => {
-   //TODO
-    res.json({});
+    data.getRooms((err, rooms) => {
+        res.json(rooms);
+    });
 });
 
 app.get("/api/rooms/:id", (req, res) => {
