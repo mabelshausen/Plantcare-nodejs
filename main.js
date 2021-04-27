@@ -26,6 +26,14 @@ app.get("/api/rooms", (req, res) => {
     });
 });
 
+app.post("/api/rooms", (req, res) => {
+    let body = req.body;
+    data.createRoom(body.name, (err, success) => {
+       if (err) res.end("failed");
+       else res.end("success");
+    });
+})
+
 app.get("/api/rooms/:id", (req, res) => {
     //TODO
     res.json({});
