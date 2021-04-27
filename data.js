@@ -23,7 +23,7 @@ function getRooms(cb) {
             console.error("Could not set up connection.");
             cb(err);
         } else {
-            let sql = "SELECT * from `rooms`;"
+            let sql = "SELECT * from `rooms`;";
             connection.query(sql, (err, rows) => {
                 connection.end();
                 if (err) {
@@ -66,7 +66,7 @@ function getRoomById(id, cb) {
             cb(err);
         } else {
             //TODO: add validation
-            let sql = "SELECT * from `rooms` WHERE `id` = ?;"
+            let sql = "SELECT * from `rooms` WHERE `id` = ?;";
             connection.query(sql, [id], (err, rows) => {
                 connection.end();
                 if (err) {
@@ -80,8 +80,30 @@ function getRoomById(id, cb) {
     });
 }
 
+function deleteRoom(id, cb) {
+    let connection = mysql.createConnection(config);
+    connection.connect((err) => {
+        if (err) {
+            console.error("Could not set up connection.");
+            cb(err);
+        } else {
+            let sql = "DELETE FROM `rooms` WHERE `id` = ?;";
+            connection.query(sql, [id], (err, result) => {
+                connection.end();
+                if (err) {
+                    console.error("Could not perform query.");
+                    return cb(err);
+                } else {
+                    return cb(err, true);
+                }
+            });
+        }
+    });
+}
+
 module.exports = {
     getRooms,
     createRoom,
-    getRoomById
+    getRoomById,
+    deleteRoom
 }
