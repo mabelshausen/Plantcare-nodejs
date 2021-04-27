@@ -80,6 +80,27 @@ function getRoomById(id, cb) {
     });
 }
 
+function updateRoom(id, body, cb) {
+    let connection = mysql.createConnection(config);
+    connection.connect((err) => {
+        if (err) {
+            console.error("Could not set up connection.");
+            cb(err);
+        } else {
+            let sql = "UPDATE `rooms` SET `name` = ? WHERE `id` = ?;";
+            connection.query(sql, [body.name, id], (err, result) => {
+                connection.end();
+                if (err) {
+                    console.error("Could not perform query.");
+                    return cb(err);
+                } else {
+                    return cb(err, true);
+                }
+            });
+        }
+    });
+}
+
 function deleteRoom(id, cb) {
     let connection = mysql.createConnection(config);
     connection.connect((err) => {
@@ -105,5 +126,6 @@ module.exports = {
     getRooms,
     createRoom,
     getRoomById,
+    updateRoom,
     deleteRoom
 }

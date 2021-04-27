@@ -41,6 +41,15 @@ app.get("/api/rooms/:id", (req, res) => {
     });
 });
 
+app.put("/api/rooms/:id", (req, res) => {
+   let id = req.params["id"];
+    let body = req.body;
+   data.updateRoom(id, body, (err, success) => {
+      if (err) res.end("failed");
+      else res.end("success");
+   });
+});
+
 app.delete("/api/rooms/:id", (req, res) => {
    let id = req.params["id"];
    data.deleteRoom(id, (err, success) => {
