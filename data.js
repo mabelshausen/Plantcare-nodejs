@@ -20,12 +20,14 @@ function getRooms(cb) {
     let connection = mysql.createConnection(config);
     connection.connect((err) => {
         if (err) {
+            console.error("Could not set up connection.");
             cb(err);
         } else {
             let sql = "SELECT * from `rooms`;"
             connection.query(sql, (err, rows) => {
                 connection.end();
                 if (err) {
+                    console.error("Could not perform query.");
                     return cb(err);
                 } else {
                     return cb(err, rows.map(row2room));
