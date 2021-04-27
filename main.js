@@ -35,8 +35,10 @@ app.post("/api/rooms", (req, res) => {
 })
 
 app.get("/api/rooms/:id", (req, res) => {
-    //TODO
-    res.json({});
+    let id = req.params["id"];
+    data.getRoomById(id, (err, room) => {
+        res.json(room);
+    });
 });
 
 app.use(function(req, res, next) {
@@ -47,7 +49,10 @@ app.use(function(err, req, res, next) {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
     res.status(err.status || 500);
-    res.render('error');
+    res.json({
+        message: err.message,
+        error: err
+    });
 });
 
 
