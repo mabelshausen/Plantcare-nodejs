@@ -21,9 +21,13 @@ app.use("/api/*", (req, res, next) => {
 });
 
 app.get("/api/rooms", (req, res) => {
-    data.getRooms((err, rooms) => {
-        res.json(rooms);
-    });
+    data.getRooms()
+        .then(rooms => {
+            res.json(rooms);
+        })
+        .catch(err => {
+            console.error("Something went wrong: ", err);
+        });
 });
 
 app.post("/api/rooms", (req, res) => {
