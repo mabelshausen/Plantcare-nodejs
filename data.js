@@ -23,9 +23,8 @@ function getRooms() {
     let sql = "SELECT * from `rooms`;";
     return database.query(sql)
         .then(rows => {
-            return database.close().then(() => {
-                return rows.map(row2room);
-            });
+            return database.close()
+                .then(() => { return rows.map(row2room); });
         }, err => {
             return database.close()
                 .then(() => { throw err; });
