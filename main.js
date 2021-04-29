@@ -56,10 +56,14 @@ app.get("/api/rooms/:id", (req, res) => {
 app.put("/api/rooms/:id", (req, res) => {
    let id = req.params["id"];
     let body = req.body;
-   data.updateRoom(id, body, (err, success) => {
-      if (err) res.end("failed");
-      else res.end("success");
-   });
+   data.updateRoom(id, body)
+       .then(() => {
+           res.end("success");
+       })
+       .catch(err => {
+           console.error("Something went wrong: ", err);
+           res.end("failed");
+       });
 });
 
 app.delete("/api/rooms/:id", (req, res) => {

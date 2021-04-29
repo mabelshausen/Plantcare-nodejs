@@ -56,25 +56,16 @@ function getRoomById(id) {
         });
 }
 
-function updateRoom(id, body, cb) {
-    let connection = mysql.createConnection(config);
-    connection.connect((err) => {
-        if (err) {
-            console.error("Could not set up connection.");
-            cb(err);
-        } else {
-            let sql = "UPDATE `rooms` SET `name` = ? WHERE `id` = ?;";
-            connection.query(sql, [body.name, id], (err, result) => {
-                connection.end();
-                if (err) {
-                    console.error("Could not perform query.");
-                    return cb(err);
-                } else {
-                    return cb(err, true);
-                }
-            });
-        }
-    });
+function updateRoom(id, body) {
+    let sql = "UPDATE `rooms` SET `name` = ? WHERE `id` = ?;";
+    return database.query(sql, [body.name, id])
+        .then(() => {
+            return database.close()
+                .then(() => { return true; });
+        }, err => {
+           return database.close()
+               .then(() => { throw err; });
+        });
 }
 
 function deleteRoom(id, cb) {
