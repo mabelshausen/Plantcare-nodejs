@@ -44,9 +44,13 @@ app.post("/api/rooms", (req, res) => {
 
 app.get("/api/rooms/:id", (req, res) => {
     let id = req.params["id"];
-    data.getRoomById(id, (err, room) => {
-        res.json(room);
-    });
+    data.getRoomById(id)
+        .then(room => {
+            res.json(room);
+        })
+        .catch(err => {
+            console.error("Something went wrong: ", err);
+        });
 });
 
 app.put("/api/rooms/:id", (req, res) => {

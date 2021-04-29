@@ -18,6 +18,7 @@ function row2room(row) {
     }
 }
 
+//TODO: add validation
 
 function getRooms() {
     let sql = "SELECT * from `rooms`;";
@@ -43,26 +44,16 @@ function createRoom(name) {
         });
 }
 
-function getRoomById(id, cb) {
-    let connection = mysql.createConnection(config);
-    connection.connect((err) => {
-        if (err) {
-            console.error("Could not set up connection.");
-            cb(err);
-        } else {
-            //TODO: add validation
-            let sql = "SELECT * from `rooms` WHERE `id` = ?;";
-            connection.query(sql, [id], (err, rows) => {
-                connection.end();
-                if (err) {
-                    console.error("Could not perform query.");
-                    return cb(err);
-                } else {
-                    return cb(err, row2room(rows[0]));
-                }
-            });
-        }
-    });
+function getRoomById(id) {
+    let sql = "SELECT * from `rooms` WHERE `id` = ?;";
+    return database.query(sql, [id])
+        .then(rows => {
+            return database.close()
+                .then(() => { return row2room(rows[0]); });
+        }, err => {
+           return database.close()
+               .then(() => { throw err; });
+        });
 }
 
 function updateRoom(id, body, cb) {
