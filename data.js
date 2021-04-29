@@ -1,13 +1,3 @@
-const mysql = require("mysql");
-
-let config = {
-    "host": "localhost",
-    "user": "plantcareuser",
-    "password" : "password",
-    "database": "plantcare",
-    "port": "3306"
-};
-
 const Database = require("./mysql-database");
 var database = new Database();
 
@@ -68,25 +58,16 @@ function updateRoom(id, body) {
         });
 }
 
-function deleteRoom(id, cb) {
-    let connection = mysql.createConnection(config);
-    connection.connect((err) => {
-        if (err) {
-            console.error("Could not set up connection.");
-            cb(err);
-        } else {
-            let sql = "DELETE FROM `rooms` WHERE `id` = ?;";
-            connection.query(sql, [id], (err, result) => {
-                connection.end();
-                if (err) {
-                    console.error("Could not perform query.");
-                    return cb(err);
-                } else {
-                    return cb(err, true);
-                }
-            });
-        }
-    });
+function deleteRoom(id) {
+    let sql = "DELETE FROM `rooms` WHERE `id` = ?;";
+    return database.query(sql, [id])
+        .then(() => {
+            database.close()
+                .then(() => { return true; });
+        }, err => {
+            database.close()
+                .then(() => { throw err; });
+        });
 }
 
 module.exports = {

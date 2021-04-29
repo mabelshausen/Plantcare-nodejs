@@ -68,10 +68,14 @@ app.put("/api/rooms/:id", (req, res) => {
 
 app.delete("/api/rooms/:id", (req, res) => {
    let id = req.params["id"];
-   data.deleteRoom(id, (err, success) => {
-      if (err) res.end("failed");
-      else res.end("success");
-   });
+   data.deleteRoom(id)
+       .then(() => {
+           res.end("success");
+       })
+       .catch(err => {
+           console.error("Something went wrong: ", err);
+           res.end("failed");
+       });
 });
 
 app.use(function(req, res, next) {
