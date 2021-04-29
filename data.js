@@ -32,23 +32,15 @@ function getRooms() {
 }
 
 function createRoom(name, cb) {
-    let connection = mysql.createConnection(config);
-    connection.connect((err) => {
-       if (err) {
-           console.error("Could not set up connection.");
-           cb(err);
-       } else {
-           let sql = "INSERT INTO `rooms`(`name`) VALUES(?);";
-           connection.query(sql, [name], (err, result) => {
-              if (err) {
-                  console.error("Could not perform query.");
-                  cb(err);
-              } else {
-                  cb(err, true);
-              }
-           });
-       }
-    });
+    let sql = "INSERT INTO `rooms`(`name`) VALUES(?);";
+    return database.query(sql, [name])
+        .then(() => {
+            return database.close()
+                .then(() => { return true; });
+        }, err => {
+           return database.close()
+               .then(() => { throw err; });
+        });
 }
 
 function getRoomById(id, cb) {

@@ -32,10 +32,14 @@ app.get("/api/rooms", (req, res) => {
 
 app.post("/api/rooms", (req, res) => {
     let body = req.body;
-    data.createRoom(body.name, (err, success) => {
-       if (err) res.end("failed");
-       else res.end("success");
-    });
+    data.createRoom(body.name)
+        .then(() => {
+            res.end("success");
+        })
+        .catch(err => {
+            console.error("Something went wrong: ", err);
+            res.end("failed");
+        });
 })
 
 app.get("/api/rooms/:id", (req, res) => {
