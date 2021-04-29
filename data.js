@@ -31,7 +31,7 @@ function getRooms() {
         });
 }
 
-function createRoom(name, cb) {
+function createRoom(name) {
     let sql = "INSERT INTO `rooms`(`name`) VALUES(?);";
     return database.query(sql, [name])
         .then(() => {
