@@ -16,13 +16,14 @@ exports.setup = function(options, seedLink) {
 
 exports.up = function(db) {
   return db.createTable('plants', {
-    id: { type: 'int', primaryKey: true, autoIncrement: true },
+    id: { type: 'int', primaryKey: true, autoIncrement: true, notNull: true, unsigned: true },
     name: { type: 'string', notNull: true },
     sciName: 'string',
-    age: 'int',
+    age: { type: 'int', unsigned: true },
     room_id: {
       type: 'int',
       notNull: true,
+      unsigned: true,
       foreignKey: {
         name: 'plants_room_id_fk',
         table: 'rooms',
@@ -37,7 +38,8 @@ exports.up = function(db) {
 };
 
 exports.down = function(db) {
-  return db.dropTable('plants');
+  return db.removeForeignKey('plants', 'plants_room_id_fk')
+      .then(db.dropTable('plants'));
 };
 
 exports._meta = {

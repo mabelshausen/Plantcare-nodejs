@@ -16,8 +16,8 @@ exports.setup = function(options, seedLink) {
 
 exports.up = function(db) {
   return db.createTable('rooms', {
-    id: { type: 'int', primaryKey: true, autoIncrement: true },
-    name: 'string'
+    id: { type: 'int', primaryKey: true, autoIncrement: true, notNull: true, unsigned: true },
+    name: { type: 'string', notNull: true }
   });
 };
 
