@@ -1,12 +1,5 @@
 const mysql = require("mysql");
-
-let config = {
-    "host": "localhost",
-    "user": "plantcareuser",
-    "password" : "password",
-    "database": "plantcare",
-    "port": "3306"
-};
+const config = require("./db-config")
 
 class Database {
 
