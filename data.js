@@ -92,11 +92,24 @@ function getPlants() {
         });
 }
 
+function createPlant(name, sciName, age, room_id) {
+    let sql = "INSERT INTO `plants`(`name`, `sciName`, `age`, `room_id`) VALUES(?, ?, ?, ?);";
+    return database.query(sql, [name, sciName, age, room_id])
+        .then(() => {
+            return database.close()
+                .then(() => { return true; });
+        }, err => {
+            return database.close()
+                .then(() => { throw err; });
+        });
+}
+
 module.exports = {
     getRooms,
     createRoom,
     getRoomById,
     updateRoom,
     deleteRoom,
-    getPlants
+    getPlants,
+    createPlant
 }

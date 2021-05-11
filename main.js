@@ -40,7 +40,7 @@ app.post("/api/rooms", (req, res) => {
             console.error("Something went wrong: ", err);
             res.end("failed");
         });
-})
+});
 
 app.get("/api/rooms/:id", (req, res) => {
     let id = req.params["id"];
@@ -85,6 +85,18 @@ app.get("/api/plants", (req, res) => {
         })
         .catch(err => {
             console.error("Something went wrong: ", err);
+        });
+});
+
+app.post("/api/plants", (req, res) => {
+    let body = req.body;
+    data.createPlant(body.name, body.sciName, body.age, body.room_id)
+        .then(() => {
+            res.end("success");
+        })
+        .catch(err => {
+            console.error("Something went wrong: ", err);
+            res.end("failed");
         });
 });
 
