@@ -78,6 +78,16 @@ app.delete("/api/rooms/:id", (req, res) => {
        });
 });
 
+app.get("/api/plants", (req, res) => {
+    data.getPlants()
+        .then(plants => {
+            res.json(plants);
+        })
+        .catch(err => {
+            console.error("Something went wrong: ", err);
+        });
+});
+
 app.use(function(req, res, next) {
     next(createError(404));
 });

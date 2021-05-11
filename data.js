@@ -8,6 +8,16 @@ function row2room(row) {
     }
 }
 
+function row2plant(row) {
+    return {
+        id: row.id,
+        name: row.name,
+        sciName: row.sciName,
+        age: row.age,
+        room_id: row.room_id
+    }
+}
+
 //TODO: add validation
 
 function getRooms() {
@@ -70,10 +80,23 @@ function deleteRoom(id) {
         });
 }
 
+function getPlants() {
+    let sql = "SELECT * from `plants`;";
+    return database.query(sql)
+        .then(rows => {
+            return database.close()
+                .then(() => { return rows.map(row2plant); });
+        }, err => {
+            return database.close()
+                .then(() => { throw err; });
+        });
+}
+
 module.exports = {
     getRooms,
     createRoom,
     getRoomById,
     updateRoom,
-    deleteRoom
+    deleteRoom,
+    getPlants
 }
