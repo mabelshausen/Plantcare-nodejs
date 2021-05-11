@@ -128,6 +128,18 @@ function updatePlant(id, body) {
         });
 }
 
+function deletePlant(id) {
+    let sql = "DELETE FROM `plants` WHERE `id` = ?;";
+    return database.query(sql, [id])
+        .then(() => {
+            database.close()
+                .then(() => { return true; });
+        }, err => {
+            database.close()
+                .then(() => { throw err; });
+        });
+}
+
 module.exports = {
     getRooms,
     createRoom,
@@ -137,5 +149,6 @@ module.exports = {
     getPlants,
     createPlant,
     getPlantById,
-    updatePlant
+    updatePlant,
+    deletePlant
 }

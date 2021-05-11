@@ -124,6 +124,18 @@ app.put("/api/plants/:id", (req, res) => {
         });
 });
 
+app.delete("/api/plants/:id", (req, res) => {
+    let id = req.params["id"];
+    data.deletePlant(id)
+        .then(() => {
+            res.end("success");
+        })
+        .catch(err => {
+            console.error("Something went wrong: ", err);
+            res.end("failed");
+        });
+});
+
 app.use(function(req, res, next) {
     next(createError(404));
 });
