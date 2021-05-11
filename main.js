@@ -111,6 +111,19 @@ app.get("/api/plants/:id", (req, res) => {
         });
 });
 
+app.put("/api/plants/:id", (req, res) => {
+    let id = req.params["id"];
+    let body = req.body;
+    data.updatePlant(id, body)
+        .then(() => {
+            res.end("success");
+        })
+        .catch(err => {
+            console.error("Something went wrong: ", err);
+            res.end("failed");
+        });
+});
+
 app.use(function(req, res, next) {
     next(createError(404));
 });

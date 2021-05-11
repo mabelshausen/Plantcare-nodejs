@@ -116,6 +116,18 @@ function getPlantById(id) {
         });
 }
 
+function updatePlant(id, body) {
+    let sql = "UPDATE `plants` SET `name` = ?, `sciName` = ?, `age` = ?, `room_id` = ? WHERE `id` = ?;";
+    return database.query(sql, [body.name, body.sciName, body.age, body.room_id, id])
+        .then(() => {
+            return database.close()
+                .then(() => { return true; });
+        }, err => {
+            return database.close()
+                .then(() => { throw err; });
+        });
+}
+
 module.exports = {
     getRooms,
     createRoom,
@@ -124,5 +136,6 @@ module.exports = {
     deleteRoom,
     getPlants,
     createPlant,
-    getPlantById
+    getPlantById,
+    updatePlant
 }
