@@ -100,6 +100,17 @@ app.post("/api/plants", (req, res) => {
         });
 });
 
+app.get("/api/plants/:id", (req, res) => {
+    let id = req.params["id"];
+    data.getPlantById(id)
+        .then(plant => {
+            res.json(plant);
+        })
+        .catch(err => {
+            console.error("Something went wrong: ", err);
+        });
+});
+
 app.use(function(req, res, next) {
     next(createError(404));
 });

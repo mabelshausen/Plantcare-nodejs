@@ -104,6 +104,18 @@ function createPlant(name, sciName, age, room_id) {
         });
 }
 
+function getPlantById(id) {
+    let sql = "SELECT * from `plants` WHERE `id` = ?;";
+    return database.query(sql, [id])
+        .then(rows => {
+            return database.close()
+                .then(() => { return row2plant(rows[0]); });
+        }, err => {
+            return database.close()
+                .then(() => { throw err; });
+        });
+}
+
 module.exports = {
     getRooms,
     createRoom,
@@ -111,5 +123,6 @@ module.exports = {
     updateRoom,
     deleteRoom,
     getPlants,
-    createPlant
+    createPlant,
+    getPlantById
 }
