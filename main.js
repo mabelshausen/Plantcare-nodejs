@@ -33,8 +33,8 @@ app.get("/api/rooms", (req, res) => {
 app.post("/api/rooms", (req, res) => {
     let body = req.body;
     data.createRoom(body.name)
-        .then(() => {
-            res.end("success");
+        .then(id => {
+            res.end(id.toString());
         })
         .catch(err => {
             console.error("Something went wrong: ", err);
@@ -57,8 +57,8 @@ app.put("/api/rooms/:id", (req, res) => {
    let id = req.params["id"];
     let body = req.body;
    data.updateRoom(id, body)
-       .then(() => {
-           res.end("success");
+       .then(id => {
+           res.end(id.toString());
        })
        .catch(err => {
            console.error("Something went wrong: ", err);
@@ -70,7 +70,7 @@ app.delete("/api/rooms/:id", (req, res) => {
    let id = req.params["id"];
    data.deleteRoom(id)
        .then(() => {
-           res.end("success");
+           res.sendStatus(204);
        })
        .catch(err => {
            console.error("Something went wrong: ", err);
@@ -91,8 +91,8 @@ app.get("/api/plants", (req, res) => {
 app.post("/api/plants", (req, res) => {
     let body = req.body;
     data.createPlant(body.name, body.sciName, body.age, body.room_id)
-        .then(() => {
-            res.end("success");
+        .then(id => {
+            res.end(id.toString());
         })
         .catch(err => {
             console.error("Something went wrong: ", err);
@@ -115,8 +115,8 @@ app.put("/api/plants/:id", (req, res) => {
     let id = req.params["id"];
     let body = req.body;
     data.updatePlant(id, body)
-        .then(() => {
-            res.end("success");
+        .then(id => {
+            res.end(id.toString());
         })
         .catch(err => {
             console.error("Something went wrong: ", err);
@@ -128,7 +128,7 @@ app.delete("/api/plants/:id", (req, res) => {
     let id = req.params["id"];
     data.deletePlant(id)
         .then(() => {
-            res.end("success");
+            res.sendStatus(204);
         })
         .catch(err => {
             console.error("Something went wrong: ", err);

@@ -35,9 +35,9 @@ function getRooms() {
 function createRoom(name) {
     let sql = "INSERT INTO `rooms`(`name`) VALUES(?);";
     return database.query(sql, [name])
-        .then(() => {
+        .then(res => {
             return database.close()
-                .then(() => { return true; });
+                .then(() => { return res.insertId; });
         }, err => {
            return database.close()
                .then(() => { throw err; });
@@ -61,7 +61,7 @@ function updateRoom(id, body) {
     return database.query(sql, [body.name, id])
         .then(() => {
             return database.close()
-                .then(() => { return true; });
+                .then(() => { return id; });
         }, err => {
            return database.close()
                .then(() => { throw err; });
@@ -95,9 +95,9 @@ function getPlants() {
 function createPlant(name, sciName, age, room_id) {
     let sql = "INSERT INTO `plants`(`name`, `sciName`, `age`, `room_id`) VALUES(?, ?, ?, ?);";
     return database.query(sql, [name, sciName, age, room_id])
-        .then(() => {
+        .then(res => {
             return database.close()
-                .then(() => { return true; });
+                .then(() => { return res.insertId; });
         }, err => {
             return database.close()
                 .then(() => { throw err; });
@@ -121,7 +121,7 @@ function updatePlant(id, body) {
     return database.query(sql, [body.name, body.sciName, body.age, body.room_id, id])
         .then(() => {
             return database.close()
-                .then(() => { return true; });
+                .then(() => { return id; });
         }, err => {
             return database.close()
                 .then(() => { throw err; });
