@@ -25,7 +25,9 @@ const seed = new Seeder(
             name: faker.lorem.word,
             sciName: faker.lorem.words,
             age: faker.datatype.number,
-            room_id: 1
+            room_id: 1,
+            waterFreq: 1,
+            lastWatered: new Date()
         }
     );
     await seed.seed(
@@ -35,7 +37,9 @@ const seed = new Seeder(
             name: faker.lorem.word,
             sciName: faker.lorem.words,
             age: faker.datatype.number,
-            room_id: 2
+            room_id: 2,
+            waterFreq: 1,
+            lastWatered: new Date()
         }
     );
     await seed.seed(
@@ -45,7 +49,9 @@ const seed = new Seeder(
             name: faker.lorem.word,
             sciName: faker.lorem.words,
             age: faker.datatype.number,
-            room_id: 3
+            room_id: 3,
+            waterFreq: 1,
+            lastWatered: new Date()
         }
     );
     seed.exit();

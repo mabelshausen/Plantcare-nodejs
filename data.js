@@ -14,7 +14,9 @@ function row2plant(row) {
         name: row.name,
         sciName: row.sciName,
         age: row.age,
-        room_id: row.room_id
+        room_id: row.room_id,
+        waterFreq: row.waterFreq,
+        lastWatered: row.lastWatered
     }
 }
 
