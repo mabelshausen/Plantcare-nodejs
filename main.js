@@ -38,7 +38,7 @@ app.post("/api/rooms", (req, res) => {
         })
         .catch(err => {
             console.error("Something went wrong: ", err);
-            res.end("failed");
+            res.sendStatus(500);
         });
 });
 
@@ -62,7 +62,7 @@ app.put("/api/rooms/:id", (req, res) => {
        })
        .catch(err => {
            console.error("Something went wrong: ", err);
-           res.end("failed");
+           res.sendStatus(500);
        });
 });
 
@@ -74,7 +74,7 @@ app.delete("/api/rooms/:id", (req, res) => {
        })
        .catch(err => {
            console.error("Something went wrong: ", err);
-           res.end("failed");
+           res.sendStatus(500);
        });
 });
 
@@ -96,7 +96,7 @@ app.post("/api/plants", (req, res) => {
         })
         .catch(err => {
             console.error("Something went wrong: ", err);
-            res.end("failed");
+            res.sendStatus(500);
         });
 });
 
@@ -120,7 +120,7 @@ app.put("/api/plants/:id", (req, res) => {
         })
         .catch(err => {
             console.error("Something went wrong: ", err);
-            res.end("failed");
+            res.sendStatus(500);
         });
 });
 
@@ -132,7 +132,7 @@ app.delete("/api/plants/:id", (req, res) => {
         })
         .catch(err => {
             console.error("Something went wrong: ", err);
-            res.end("failed");
+            res.sendStatus(500);
         });
 });
 
