@@ -94,9 +94,9 @@ function getPlants() {
         });
 }
 
-function createPlant(name, sciName, age, room_id) {
-    let sql = "INSERT INTO `plants`(`name`, `sciName`, `age`, `room_id`) VALUES(?, ?, ?, ?);";
-    return database.query(sql, [name, sciName, age, room_id])
+function createPlant(name, sciName, age, room_id, waterFreq) {
+    let sql = "INSERT INTO `plants`(`name`, `sciName`, `age`, `room_id`, `waterFreq`, `lastWatered`) VALUES(?, ?, ?, ?, ?, ?);";
+    return database.query(sql, [name, sciName, age, room_id, waterFreq, new Date()])
         .then(res => {
             return database.close()
                 .then(() => { return res.insertId; });
@@ -119,8 +119,8 @@ function getPlantById(id) {
 }
 
 function updatePlant(id, body) {
-    let sql = "UPDATE `plants` SET `name` = ?, `sciName` = ?, `age` = ?, `room_id` = ? WHERE `id` = ?;";
-    return database.query(sql, [body.name, body.sciName, body.age, body.room_id, id])
+    let sql = "UPDATE `plants` SET `name` = ?, `sciName` = ?, `age` = ?, `room_id` = ?, `waterFreq` = ?, `lastWatered` = ? WHERE `id` = ?;";
+    return database.query(sql, [body.name, body.sciName, body.age, body.room_id, body.waterFreq, new Date(body.lastWatered), id])
         .then(() => {
             return database.close()
                 .then(() => { return id; });

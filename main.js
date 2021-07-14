@@ -92,7 +92,7 @@ app.get("/api/plants", (req, res) => {
 
 app.post("/api/plants", (req, res) => {
     let body = req.body;
-    data.createPlant(body.name, body.sciName, body.age, body.room_id)
+    data.createPlant(body.name, body.sciName, body.age, body.room_id, body.waterFreq)
         .then(id => {
             res.end(id.toString());
         })
